@@ -13,6 +13,7 @@ class App extends React.Component {
 
     this.state = {
       images: [],
+      name: '',
       currentIndex: 0,
       modal: false,
     };
@@ -22,8 +23,10 @@ class App extends React.Component {
     const Id = window.location.pathname.split('/')[2];
     axios.get(`/api/videos/${Id}/photos`)
       .then(response => (
+        console.log(response, 'respinse'),
         this.setState({
           images: response.data[0].videos,
+          name: response.data[0].name,
         })
       ))
       .catch(error => console.log(error));
@@ -32,7 +35,7 @@ class App extends React.Component {
   goToPrevSlide = () => {
     if (this.state.currentIndex !== 0) {
       this.setState({
-        currentIndex: this.state.currentIndex - 1,
+        currentIndex: this.state.currentIndex - 5,
       });
     }
   }
@@ -40,7 +43,7 @@ class App extends React.Component {
   goToNextSlide = () => {
     if (this.state.currentIndex !== this.state.images.length - 1) {
       this.setState({
-        currentIndex: this.state.currentIndex + 1,
+        currentIndex: this.state.currentIndex + 5,
       });
     }
   }
@@ -67,11 +70,11 @@ class App extends React.Component {
       currentIndex={this.state.currentIndex}
       images={this.state.images}
       clickHandlerOnModalDisplay={this.clickHandlerOnModalDisplay} />
-      : this.state.images ? <ThumbnailGallery images={this.state.images} clickHandlerOnModalDisplay={this.clickHandlerOnModalDisplay} /> : 'Loading';
-      // : <ThumbnailGallery images={this.state.images} clickHandler={this.clickHandler} />;
+      : this.state.images ? <ThumbnailGallery images={this.state.images} name={this.state.name} clickHandlerOnModalDisplay={this.clickHandlerOnModalDisplay} /> : 'Loading Videos';
 
     return (
       <div>
+          <p>VIDEOS</p>
         {renderModal}
       </div>
     );

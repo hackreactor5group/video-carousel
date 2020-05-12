@@ -2,10 +2,75 @@
 /* eslint-disable max-len */
 import React from 'react';
 import Thumbnail from './Thumbnail.jsx';
+import styled from 'styled-components';
 
+const OuterDiv = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height:260px;
+  width:1100px;
+  z-index: 1;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: grey;
+`;
 
+const InnerDiv = styled.div`
+  display: flex;
+  width: 2200px;
+  height: 100%
+  margin: 0 auto;
+  background-color: white;
+  z-index: 2;
+`;
 
+const PrevLink = styled.a`
+cursor: pointer;
+position: absolute;
+top: 16%;
+left: -2%;
+width: auto;
+padding: 16px;
+/* transform: translateX(); */
+/* transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955); */
+color: red;
+font-weight: bold;
+font-size: 40px;
+transition: 0.6s ease;
+border-radius: 0 3px 3px 0;
+user-select: none;
+-webkit-user-select: none;
 
+&:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+`;
+
+const NextLink = styled.a`
+cursor: pointer;
+position: absolute;
+top: 16%;
+left: 90%;
+width: auto;
+padding: 16px;
+/* margin-top: -50px; */
+color: red;
+font-weight: bold;
+font-size: 40px;
+transition: 0.6s ease;
+border-radius: 0 3px 3px 0;
+user-select: none;
+-webkit-user-select: none;
+right: 83px;
+border-radius: 3px 0 0 3px;
+right: 83px;
+border-radius: 3px 0 0 3px;
+
+&:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+`;
 
 class ThumbnailGallery extends React.Component {
   constructor(props) {
@@ -39,75 +104,37 @@ class ThumbnailGallery extends React.Component {
     this.setState({
         currentImageIndex: index
     });
-  }
-
-
-  
+  }  
   
   render() {
 
     //get current image index
     const index = this.state.currentImageIndex;
-    // create a new array with 5 videos from the source images
-    let firstFiveVideo = this.props.images.slice(index, index + 10);
+    // create a new array with 10 videos from the source images
+    let firstTenVideo = this.props.images.slice(index, index + 10);
     // check the length of the new array (it’s less than 10 when index is near the end of the array)
-    if (firstFiveVideo.length < 10) {
-    // if the firstFiveVideo's length is lower than 10 images than append missing images from the beginning of the original array 
-      firstFiveVideo = firstFiveVideo.concat(this.props.images.slice(0, 10 - firstFiveVideo.length))
+    if (firstTenVideo.length < 10) {
+    // if the firstTenVideo's length is lower than 10 images than append missing images from the beginning of the original array 
+      firstTenVideo = firstTenVideo.concat(this.props.images.slice(0, 10 - firstTenVideo.length))
     }
 
 
     const images = this.props.images;
     const clickHandlerOnModalDisplay = this.props.clickHandlerOnModalDisplay;
+    const userName = this.props.name;
     console.log(clickHandlerOnModalDisplay, 'clicked on gallery')
     console.log(images, 'testttttt')
     return (
-      <div style={{
-        position: 'relative',
-        display: 'flex', 
-        'flex-direction': 'row', 
-        height: '100px',
-        width: '600px',
-        'z-index': '1',
-        margin: '0 auto',
-        overflow: 'hidden',
-        'background-color': 'green',
-        outline: '1px solid green'
-      }}>
-                  <div style={{
-                    display: 'flex',
-                    width: '1200px',
-                    margin: '0 auto',
-                    'background-color': 'yellow',
-                    'z-index': '2'
-                  }}>
-                  <a className="prev" onClick={this.prevSlide} >&#10094;</a>
-
-                      {firstFiveVideo.map((image, i) => <Thumbnail image={image} clickHandlerOnModalDisplay={clickHandlerOnModalDisplay} key={i} index={i} /> )}
-                  <a className="next" onClick={this.nextSlide} >&#10095;</a>
-                    </div>
-          </div>
+      <OuterDiv>
+        <InnerDiv>
+          <PrevLink onClick={this.prevSlide} >&#10094;</PrevLink>
+            {firstTenVideo.map((image, i) => <Thumbnail image={image} userName={userName} clickHandlerOnModalDisplay={clickHandlerOnModalDisplay} key={i} index={i} /> )}
+          <NextLink onClick={this.nextSlide} >&#10095;</NextLink>
+        </InnerDiv>
+        </OuterDiv>
         
     )
   }
 }
-
-// const ThumbnailGallery = props => (
-//   <div className="initial_thumbnail">
-//     <p>Videos</p>
-//     <a className="prev" onClick={props.goToPrevSlide} >&#10094;</a>
-
-//     <div style={{
-//       height: '100px',
-//       width: '1200px',
-//       margin: '0 auto',
-//       display: 'flex',
-//       top: '450px',
-//     }}>
-//     {props.images.map((image, i) => <Thumbnail image={image} clickHandler={props.clickHandler} key={i} index={i} />)}
-//     </div>
-//     <a className="next" onClick={props.goToNextSlide} >&#10095;</a>
-//   </div>
-// );
 
 export default ThumbnailGallery;

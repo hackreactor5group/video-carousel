@@ -11,9 +11,9 @@ for(let i = 0; i <= 100; i++) {
         const videoId = (Math.floor(Math.random() * 66) + 1).toString();
         images.push({full: `https://feccarouselimages.s3-us-west-1.amazonaws.com/images/videoImages${videoId}.jpeg` , small: `https://feccarouselimages.s3-us-west-1.amazonaws.com/images/videoImages${videoId}.jpeg` });
     }
-    for(let k = 0; k < 20; k++) {
-        paragraph += `${faker.hacker.noun()}`;
-    }
+    // for(let k = 0; k < 1; k++) {
+        paragraph += `${faker.hacker.phrase()}`;
+    // }
     sampleVideos.push({
         _id: i, name: faker.name.findName(), description: paragraph, videos: images,
     });
