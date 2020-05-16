@@ -21,9 +21,8 @@ class App extends React.Component {
 
   componentDidMount = () => {
     const Id = window.location.pathname.split('/')[2];
-    axios.get(`/api/videos/${Id}/photos`)
+    axios.get(`/api/videos/${35}/photos`)
       .then(response => (
-        console.log(response, 'respinse'),
         this.setState({
           images: response.data[0].videos,
           name: response.data[0].name,
@@ -49,7 +48,6 @@ class App extends React.Component {
   }
 
   clickHandlerOnModalDisplay = (e) => {
-    console.log('clicked Handler')
     if (e.target.getAttribute('index') !== this.state.currentIndex) {
       this.setState({
         currentIndex: Number(e.target.getAttribute('index')),
@@ -63,7 +61,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.images, 'this.state.images')
     const renderModal = this.state.modal ? <Modal goToNextSlide={this.goToNextSlide}
       goToPrevSlide={this.goToPrevSlide}
       closeModal={this.closeModal}
@@ -82,4 +79,3 @@ class App extends React.Component {
 }
 
 export default App;
-window.Photos = App;

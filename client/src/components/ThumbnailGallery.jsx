@@ -122,8 +122,6 @@ class ThumbnailGallery extends React.Component {
     const images = this.props.images;
     const clickHandlerOnModalDisplay = this.props.clickHandlerOnModalDisplay;
     const userName = this.props.name;
-    console.log(clickHandlerOnModalDisplay, 'clicked on gallery')
-    console.log(images, 'testttttt')
     return (
       <OuterDiv>
         <InnerDiv>

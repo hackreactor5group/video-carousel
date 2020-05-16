@@ -20,11 +20,10 @@ const NameTag = styled.p`
 `
 
 const Thumbnail = props => (
-    console.log(props, 'props'),
 
     <ImageDiv>
         <Image src={props.image.small} onClick={props.clickHandlerOnModalDisplay} index={props.index} />
-            <p style={{color:'red'}}>{props.userName}</p>
+            <NameTag>{props.userName}</NameTag>
     </ImageDiv>
 );
 
